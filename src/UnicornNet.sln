@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnicornNet", "UnicornNet\UnicornNet.csproj", "{A26C58FF-CC0A-495F-911F-A0A9148CC387}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnicornNet.App", "UnicornNet.App\UnicornNet.App.csproj", "{4D15A20F-5264-4625-887A-A14EFD969B14}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A26C58FF-CC0A-495F-911F-A0A9148CC387}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A26C58FF-CC0A-495F-911F-A0A9148CC387}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A26C58FF-CC0A-495F-911F-A0A9148CC387}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A26C58FF-CC0A-495F-911F-A0A9148CC387}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D15A20F-5264-4625-887A-A14EFD969B14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D15A20F-5264-4625-887A-A14EFD969B14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D15A20F-5264-4625-887A-A14EFD969B14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D15A20F-5264-4625-887A-A14EFD969B14}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
