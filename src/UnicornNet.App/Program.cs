@@ -1,4 +1,5 @@
-﻿using UnicornNet.Data;
+﻿using System;
+using UnicornNet.Data;
 using UnicornNet.Registers;
 
 namespace UnicornNet.App
@@ -19,6 +20,11 @@ namespace UnicornNet.App
                     0xdf, 0x3f, 0x03, 0xd5
                 };
 
+                unicorn.HookCode((uc, address1, size, data) =>
+                {
+                    Console.WriteLine("Code..");    
+                });
+                
                 unicorn.MemMap(address, memSize);
                 unicorn.MemWrite(address, codeBytes);
                 unicorn.RegWrite(UcArm64Reg.UC_ARM64_REG_SP, address + memSize);

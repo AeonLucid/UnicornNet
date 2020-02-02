@@ -98,13 +98,13 @@ namespace UnicornNet
         [DllImport("Libs/x64/unicorn", EntryPoint = "uc_reg_read_batch")]
         public static extern UcErr UcRegReadBatch(IntPtr engine, IntPtr regs, IntPtr vals, int count);
         // uc_err uc_reg_read_batch(uc_engine *uc, int *regs, void **vals, int count);
-        
+
         [DllImport("Libs/x64/unicorn", EntryPoint = "uc_mem_write")]
         public static extern unsafe UcErr UcMemWrite(IntPtr engine, ulong address, byte* bytes, ulong size);
         // uc_err uc_mem_write(uc_engine *uc, uint64_t address, const void *bytes, size_t size);
-        
+
         [DllImport("Libs/x64/unicorn", EntryPoint = "uc_mem_read")]
-        public static extern UcErr UcMemRead(IntPtr engine, ulong address, IntPtr bytes, ulong size);
+        public static extern unsafe UcErr UcMemRead(IntPtr engine, ulong address, byte* bytes, ulong size);
         // uc_err uc_mem_write(uc_engine *uc, uint64_t address, const void *bytes, size_t size);
         
         [DllImport("Libs/x64/unicorn", EntryPoint = "uc_emu_start")]
@@ -116,7 +116,7 @@ namespace UnicornNet
         // uc_err uc_emu_stop(uc_engine *uc);
         
         [DllImport("Libs/x64/unicorn", EntryPoint = "uc_hook_add")]
-        public static extern UcErr UcHookAdd(IntPtr engine, out IntPtr hookHandle, UcHookType type, IntPtr callback, IntPtr userData, ulong begin, ulong end);
+        public static extern UcErr UcHookAdd(IntPtr engine, out IntPtr hookHandle, UcHookType type, Delegate callback, IntPtr userData, ulong begin, ulong end);
         // uc_err uc_hook_add(uc_engine *uc, uc_hook *hh, int type, void *callback, void *user_data, uint64_t begin, uint64_t end, ...);
         
         [DllImport("Libs/x64/unicorn", EntryPoint = "uc_hook_del")]
