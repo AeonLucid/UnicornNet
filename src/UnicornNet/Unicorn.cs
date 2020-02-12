@@ -75,9 +75,11 @@ namespace UnicornNet
             }
         }
 
-        public unsafe void MemRead(ulong address, Span<byte> bytes, ulong size)
+        public unsafe byte[] MemRead(ulong address, ulong size)
         {
-            fixed (byte* pBytes = bytes)
+            var result = new byte[size];
+            
+            fixed (byte* pBytes = result)
             {
                 var err = UcNative.UcMemRead(Handle, address, pBytes, size);
                 if (err != UcErr.UC_ERR_OK)
@@ -85,6 +87,8 @@ namespace UnicornNet
                     throw new UcException(err);
                 }
             }
+
+            return result;
         }
 
         public void EmuStart(ulong begin, ulong until, ulong timeout = 0, ulong size = 0)
@@ -108,7 +112,7 @@ namespace UnicornNet
         private IntPtr HookAdd(UcHookType type, Delegate callback, Delegate userCallback, object userData = null, ulong begin = 1, ulong end = 0)
         {
             var callbackId = _callbackId++;
-            var callbackData = new UnicornCallbackData(userCallback, userData);
+            var callbackData = new UnicornCallbackData(callback, userCallback, userData);
             var err = UcNative.UcHookAdd(Handle, out var result, type, callback, new IntPtr(callbackId), begin, end);
             if (err != UcErr.UC_ERR_OK)
             {
@@ -125,10 +129,15 @@ namespace UnicornNet
             return HookAdd(UcHookType.UC_HOOK_CODE, (CallbackHookCode) HookCodeCallback, callback, userData, begin, end);
         }
 
+        public IntPtr HookBlock(CallbackHookCodeUser callback, object userData = null, ulong begin = 1, ulong end = 0)
+        {
+            return HookAdd(UcHookType.UC_HOOK_BLOCK, (CallbackHookCode) HookCodeCallback, callback, userData, begin, end);
+        }
+
         private void HookCodeCallback(IntPtr uc, ulong address, int size, IntPtr userData)
         {
             var callbackData = _callbacks[userData.ToInt32()];
-            ((CallbackHookCodeUser) callbackData.Callback)(this, address, size, callbackData.UserData);
+            ((CallbackHookCodeUser) callbackData.UserCallback)(this, address, size, callbackData.UserData);
         }
 
         public IntPtr HookIntr(CallbackHookIntrUser callback, object userData = null, ulong begin = 1, ulong end = 0)
@@ -139,7 +148,7 @@ namespace UnicornNet
         private void HookIntrCallback(IntPtr uc, uint intno, IntPtr userData)
         {
             var callbackData = _callbacks[userData.ToInt32()];
-            ((CallbackHookIntrUser) callbackData.Callback)(this, intno, callbackData.UserData);
+            ((CallbackHookIntrUser) callbackData.UserCallback)(this, intno, callbackData.UserData);
         }
 
         public IntPtr HookInsnInvalid(CallbackHookInsnInvalidUser callback, object userData = null, ulong begin = 1, ulong end = 0)
@@ -150,7 +159,7 @@ namespace UnicornNet
         private bool HookInsnInvalidCallback(IntPtr uc, IntPtr userData)
         {
             var callbackData = _callbacks[userData.ToInt32()];
-            return ((CallbackHookInsnInvalidUser) callbackData.Callback)(this, callbackData.UserData);
+            return ((CallbackHookInsnInvalidUser) callbackData.UserCallback)(this, callbackData.UserData);
         }
 
         public IntPtr HookMem(CallbackHookMemUser callback, UcHookTypeMem hookType, object userData = null, ulong begin = 1, ulong end = 0)
@@ -161,7 +170,7 @@ namespace UnicornNet
         private void HookMemCallback(IntPtr uc, UcMemType type, ulong address, int size, long value, IntPtr userData)
         {
             var callbackData = _callbacks[userData.ToInt32()];
-            ((CallbackHookMemUser) callbackData.Callback)(this, type, address, size, value, callbackData.UserData);
+            ((CallbackHookMemUser) callbackData.UserCallback)(this, type, address, size, value, callbackData.UserData);
         }
 
         public IntPtr HookMemEvent(CallbackEventMemUser callback, UcHookTypeMemInvalid hookType, object userData = null, ulong begin = 1, ulong end = 0)
@@ -172,7 +181,7 @@ namespace UnicornNet
         private bool HookMemEventCallback(IntPtr uc, UcMemType type, ulong address, int size, long value, IntPtr userData)
         {
             var callbackData = _callbacks[userData.ToInt32()];
-            return ((CallbackEventMemUser) callbackData.Callback)(this, type, address, size, value, callbackData.UserData);
+            return ((CallbackEventMemUser) callbackData.UserCallback)(this, type, address, size, value, callbackData.UserData);
         }
 
         public void HookDel(IntPtr hookHandle)
