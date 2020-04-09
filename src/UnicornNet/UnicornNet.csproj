@@ -13,13 +13,7 @@
       <None Update="Libs\x64\unicorn.dll">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
-      <None Update="Libs\x64\libwinpthread-1.dll">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="Libs\x64\libgcc_s_seh-1.dll">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
-      <None Update="Libs\x64\unicorn_java.dll">
+      <None Update="Libs\x64\unicorn.dylib">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>
