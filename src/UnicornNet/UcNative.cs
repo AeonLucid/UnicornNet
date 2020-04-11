@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using UnicornNet.Data;
 
@@ -17,6 +18,12 @@ namespace UnicornNet
 
                 if (name == LibraryName)
                 {
+                    var basePath = Path.GetDirectoryName(assembly.Location);
+                    if (basePath == null)
+                    {
+                        throw new ArgumentException("Expected directory of Assembly.Location to not be null.", nameof(basePath));    
+                    }
+                    
                     var libraryFile = "unicorn.dll";
 
                     if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
@@ -31,10 +38,10 @@ namespace UnicornNet
                     switch (RuntimeInformation.ProcessArchitecture)
                     {
                         case Architecture.X64:
-                            NativeLibrary.TryLoad("Libs/x64/" + libraryFile, out handle);
+                            NativeLibrary.TryLoad(Path.Combine(basePath, "Libs", "x64", libraryFile), out handle);
                             break;
                         case Architecture.Arm64:
-                            NativeLibrary.TryLoad("Libs/arm64/" + libraryFile, out handle);
+                            NativeLibrary.TryLoad(Path.Combine(basePath, "Libs", "arm64", libraryFile), out handle);
                             break;
                         default:
                             throw new NotImplementedException("Unsupported architecture.");
