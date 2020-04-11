@@ -14,25 +14,30 @@ namespace UnicornNet
             NativeLibrary.SetDllImportResolver(typeof(UcNative).Assembly, (name, assembly, path) =>
             {
                 var handle = IntPtr.Zero;
-                
+
                 if (name == LibraryName)
                 {
+                    var libraryFile = "unicorn.dll";
+
+                    if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                    {
+                        libraryFile = "unicorn.so";
+                    }
+                    else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                    {
+                        libraryFile = "unicorn.dylib";
+                    }
+
                     switch (RuntimeInformation.ProcessArchitecture)
                     {
-                        case Architecture.X86:
-                            NativeLibrary.TryLoad("Libs/x86/unicorn", out handle);
-                            break;
                         case Architecture.X64:
-                            NativeLibrary.TryLoad("Libs/x64/unicorn", out handle);
-                            break;
-                        case Architecture.Arm:
-                            NativeLibrary.TryLoad("Libs/arm/unicorn", out handle);
+                            NativeLibrary.TryLoad("Libs/x64/" + libraryFile, out handle);
                             break;
                         case Architecture.Arm64:
-                            NativeLibrary.TryLoad("Libs/arm64/unicorn", out handle);
+                            NativeLibrary.TryLoad("Libs/arm64/" + libraryFile, out handle);
                             break;
                         default:
-                            throw new ArgumentOutOfRangeException();
+                            throw new NotImplementedException("Unsupported architecture.");
                     }
                 }
 
