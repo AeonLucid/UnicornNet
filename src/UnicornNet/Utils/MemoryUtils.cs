@@ -4,7 +4,7 @@ namespace UnicornNet.Utils
 {
     public static class MemoryUtils
     {
-        private const ulong UnicornPageSize = 0x1000;
+        public const ulong UnicornPageSize = 0x1000;
         
         public static ulong AlignPageUp(ulong size)
         {
