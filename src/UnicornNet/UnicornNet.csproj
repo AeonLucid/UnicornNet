@@ -4,9 +4,10 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
-
+    
     <ItemGroup>
       <Folder Include="Libs\x64" />
+      <Folder Include="Libs\arm64" />
     </ItemGroup>
 
     <ItemGroup>
@@ -14,6 +15,9 @@
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
       <None Update="Libs\x64\unicorn.dylib">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Libs\arm64\unicorn.so">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>
