@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.InteropServices;
 using UnicornNet.Data;
 
@@ -63,6 +64,34 @@ namespace UnicornNet
             return result;
         }
 
+        public void MemWrite(ulong address, Stream stream, int size)
+        {
+            const int bufferSize = 8192;
+
+            var remaining = size;
+            var buffer = new byte[bufferSize];
+            
+            while (remaining > 0)
+            {
+                var target = Math.Min(remaining, bufferSize);
+                var read = stream.Read(buffer, 0, target);
+                if (read != target)
+                {
+                    throw new UcException("UnicornNet: Unable to read correct amount from stream.", UcErr.UC_ERR_ARG);
+                }
+                
+                MemWrite(address, buffer);
+
+                address += (ulong) read;
+                remaining -= read;
+            }
+
+            if (remaining != 0)
+            {
+                throw new UcException("UnicornNet: Unable to read full size from stream.", UcErr.UC_ERR_ARG);
+            }
+        }
+        
         public unsafe void MemWrite(ulong address, byte[] bytes)
         {
             fixed (byte* pBytes = bytes)
