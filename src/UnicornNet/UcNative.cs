@@ -7,7 +7,7 @@ namespace UnicornNet
 {
     public static class UcNative
     {
-#if NETCOREAPP3_1
+#if NETCOREAPP
         private const string LibraryName = "Unicorn";
 
         static UcNative()
