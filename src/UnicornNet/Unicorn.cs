@@ -80,7 +80,7 @@ namespace UnicornNet
                     throw new UcException("UnicornNet: Unable to read correct amount from stream.", UcErr.UC_ERR_ARG);
                 }
                 
-                MemWrite(address, buffer);
+                MemWrite(address, buffer, (ulong) target);
 
                 address += (ulong) read;
                 remaining -= read;
@@ -91,12 +91,17 @@ namespace UnicornNet
                 throw new UcException("UnicornNet: Unable to read full size from stream.", UcErr.UC_ERR_ARG);
             }
         }
+
+        public void MemWrite(ulong address, byte[] bytes)
+        {
+            MemWrite(address, bytes, (ulong) bytes.Length);
+        }
         
-        public unsafe void MemWrite(ulong address, byte[] bytes)
+        public unsafe void MemWrite(ulong address, byte[] bytes, ulong length)
         {
             fixed (byte* pBytes = bytes)
             {
-                var err = UcNative.UcMemWrite(Handle, address, pBytes, (ulong) bytes.Length);
+                var err = UcNative.UcMemWrite(Handle, address, pBytes, length);
                 if (err != UcErr.UC_ERR_OK)
                 {
                     throw new UcException(err);
