@@ -5,7 +5,6 @@ namespace UnicornNet
 {
     public class UcException : Exception
     {
-
         public UcException(UcErr ucErr) : base(ucErr.ToString())
         {
             UcicornError = ucErr;
