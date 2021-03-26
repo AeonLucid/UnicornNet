@@ -109,6 +109,18 @@ namespace UnicornNet
             }
         }
 
+        public unsafe void MemWrite(ulong address, Span<byte> bytes)
+        {
+            fixed (byte* pBytes = bytes)
+            {
+                var err = UcNative.UcMemWrite(Handle, address, pBytes, (ulong) bytes.Length);
+                if (err != UcErr.UC_ERR_OK)
+                {
+                    throw new UcException(err);
+                }
+            }
+        }
+
         public unsafe byte[] MemRead(ulong address, ulong size)
         {
             var result = new byte[size];
@@ -123,6 +135,18 @@ namespace UnicornNet
             }
 
             return result;
+        }
+
+        public unsafe void MemRead(ulong address, ulong size, Span<byte> dest)
+        {
+            fixed (byte* destPtr = dest)
+            {
+                var err = UcNative.UcMemRead(Handle, address, destPtr, size);
+                if (err != UcErr.UC_ERR_OK)
+                {
+                    throw new UcException(err);
+                }
+            }
         }
 
         public void EmuStart(ulong begin, ulong until, ulong timeout = 0, ulong size = 0)
