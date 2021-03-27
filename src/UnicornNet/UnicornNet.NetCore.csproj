@@ -5,25 +5,28 @@
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <RootNamespace>UnicornNet</RootNamespace>
     </PropertyGroup>
-    
+
     <ItemGroup>
-      <Folder Include="Libs\x64" />
-      <Folder Include="Libs\arm64" />
+        <Folder Include="Libs\x64"/>
+        <Folder Include="Libs\arm64"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="Libs\x64\unicorn.dll">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Include="Libs\x64\unicorn.dylib">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Include="Libs\x64\unicorn.so">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Include="Libs\arm64\unicorn.so">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
+        <Content Include="Libs\x64\unicorn.dll">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Libs\x64\unicorn.dylib">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Libs\x64\unicorn.so">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Libs\arm64\unicorn.so">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Libs\arm64\unicorn.dylib">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
 </Project>
