@@ -272,8 +272,45 @@ namespace UnicornNet.Registers
         public const int UC_ARM64_REG_TPIDR_EL0 = 262;
         public const int UC_ARM64_REG_TPIDRRO_EL0 = 263;
         public const int UC_ARM64_REG_TPIDR_EL1 = 264;
+        
+        public const int UC_ARM64_REG_PSTATE = 265;
+        
+        //> exception link registers
+        public const int UC_ARM64_REG_ELR_EL0 = 266;
+        public const int UC_ARM64_REG_ELR_EL1 = 267;
+        public const int UC_ARM64_REG_ELR_EL2 = 268;
+        public const int UC_ARM64_REG_ELR_EL3 = 269;
 
-        public const int UC_ARM64_REG_ENDING = 265; // <-- mark the end of the list of registers
+        //> stack pointers registers
+        public const int UC_ARM64_REG_SP_EL0 = 270;
+        public const int UC_ARM64_REG_SP_EL1 = 271;
+        public const int UC_ARM64_REG_SP_EL2 = 272;
+        public const int UC_ARM64_REG_SP_EL3 = 273;
+
+        //> other CP15 registers
+        public const int UC_ARM64_REG_TTBR0_EL1 = 274;
+        public const int UC_ARM64_REG_TTBR1_EL1 = 275;
+
+        public const int UC_ARM64_REG_ESR_EL0 = 276;
+        public const int UC_ARM64_REG_ESR_EL1 = 277;
+        public const int UC_ARM64_REG_ESR_EL2 = 278;
+        public const int UC_ARM64_REG_ESR_EL3 = 279;
+
+        public const int UC_ARM64_REG_FAR_EL0 = 280;
+        public const int UC_ARM64_REG_FAR_EL1 = 281;
+        public const int UC_ARM64_REG_FAR_EL2 = 282;
+        public const int UC_ARM64_REG_FAR_EL3 = 283;
+
+        public const int UC_ARM64_REG_PAR_EL1 = 284;
+
+        public const int UC_ARM64_REG_MAIR_EL1 = 285;
+
+        public const int UC_ARM64_REG_VBAR_EL0 = 286;
+        public const int UC_ARM64_REG_VBAR_EL1 = 287;
+        public const int UC_ARM64_REG_VBAR_EL2 = 288;
+        public const int UC_ARM64_REG_VBAR_EL3 = 289;
+
+        public const int UC_ARM64_REG_ENDING = 290; // <-- mark the end of the list of registers
 
         //> alias registers
         public const int UC_ARM64_REG_IP0 = UC_ARM64_REG_X16;
