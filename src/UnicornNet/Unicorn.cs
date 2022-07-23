@@ -28,6 +28,18 @@ namespace UnicornNet
         
         public IntPtr Handle { get; }
 
+        public static UcVersion GetVersion()
+        {
+            var result = UcNative.UcVersion(IntPtr.Zero, IntPtr.Zero);
+
+            var major = (byte) ((result >> 24) & 0xFF);
+            var minor = (byte) ((result >> 16) & 0xFF);
+            var patch = (byte) ((result >> 8) & 0xFF);
+            var extra = (byte) ((result) & 0xFF);
+            
+            return new UcVersion(major, minor, patch, extra);
+        }
+
         public ulong Query(UcQueryType type)
         {
             var err = UcNative.UcQuery(Handle, type, out var result);

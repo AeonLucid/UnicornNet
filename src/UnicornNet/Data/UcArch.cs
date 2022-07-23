@@ -9,6 +9,9 @@ namespace UnicornNet.Data
         UC_ARCH_PPC,        // PowerPC architecture (currently unsupported)
         UC_ARCH_SPARC,      // Sparc architecture
         UC_ARCH_M68K,       // M68K architecture
+        UC_ARCH_RISCV,
+        UC_ARCH_S390X,
+        UC_ARCH_TRICORE,
         UC_ARCH_MAX,
     }
 }

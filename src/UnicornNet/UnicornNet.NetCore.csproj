@@ -7,8 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Libs\x64"/>
-        <Folder Include="Libs\arm64"/>
+        <Folder Include="Libs\x64" />
+        <Folder Include="Libs\arm64" />
     </ItemGroup>
 
     <ItemGroup>

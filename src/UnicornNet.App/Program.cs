@@ -8,6 +8,12 @@ namespace UnicornNet.App
     {   
         private static void Main(string[] args)
         {
+            Console.WriteLine("Start");
+
+            var version = Unicorn.GetVersion();
+            
+            Console.WriteLine($"Running Unicorn version: {version.Major}.{version.Minor}");
+            
             using (var unicorn = new Unicorn(UcArch.UC_ARCH_ARM64, UcMode.UC_MODE_ARM))
             {
                 const ulong address = 0x1000;
@@ -20,16 +26,26 @@ namespace UnicornNet.App
                     0xdf, 0x3f, 0x03, 0xd5
                 };
 
+                Console.WriteLine("- HookCode");
                 unicorn.HookCode((uc, address1, size, data) =>
                 {
                     Console.WriteLine("Code..");    
                 });
                 
+                Console.WriteLine("- MemMap");
                 unicorn.MemMap(address, memSize);
+                
+                Console.WriteLine("- MemWrite");
                 unicorn.MemWrite(address, codeBytes);
+                
+                Console.WriteLine("- RegWrite");
                 unicorn.RegWrite(UcArm64Reg.UC_ARM64_REG_SP, address + memSize);
+                
+                Console.WriteLine("- EmuStart");
                 unicorn.EmuStart(address, address + (ulong) codeBytes.Length);
             }
+            
+            Console.WriteLine("Stop");
         }
     }
 }

@@ -157,7 +157,7 @@ namespace UnicornNet
         // uc_err uc_mem_write(uc_engine *uc, uint64_t address, const void *bytes, size_t size);
         
         [DllImport(LibraryName, EntryPoint = "uc_emu_start")]
-        public static extern UcErr UcEmuStart(IntPtr engine, ulong begin, ulong until, ulong timeout, ulong size);
+        public static extern UcErr UcEmuStart(IntPtr engine, ulong begin, ulong until, ulong timeout, ulong count);
         // uc_err uc_emu_start(uc_engine *uc, uint64_t begin, uint64_t until, uint64_t timeout, size_t count);
         
         [DllImport(LibraryName, EntryPoint = "uc_emu_stop")]
